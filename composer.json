@@ -1,0 +1,16 @@
+{
+    "name": "vscode/tictactoe-php",
+    "type": "project",
+    "require-dev": {
+        "symfony/var-dumper": "^5.3",
+        "filp/whoops": "^2.14"
+    },
+    "license": "private",
+    "autoload": {
+        "psr-4": {
+            "TicTacToe\\": "src/"
+        }
+    },
+    "minimum-stability": "stable",
+    "require": {}
+}
