@@ -19,6 +19,7 @@ interface Winnerable
 
 interface BoardLayout
 {
+    public static function boardCreator(): array;
 }
 
 class Player
@@ -50,12 +51,23 @@ class PlayerO extends Player
 class SmallBoard implements BoardLayout
 {
     public const SIZE = 3;
+    public static function boardCreator($boardSize = SmallBoard::SIZE): array
+    {
+        $boardLayout = [];
+        for ($xq = 0; $xq < $boardSize; $xq++) {
+            array_push($boardLayout, []);
+            for ($yq = 0; $yq < $boardSize; $yq++) {
+                array_push($boardLayout[$xq], null);
+            }
+        }
+        return $boardLayout;
+    }
 }
 
 abstract class BaseBoard implements Renderable, Winnerable
 {
     abstract public static function render(
-        array $cells,
+        int $boardSize,
         SmallBoard $layout,
         int $columCount,
         int $rowCount
@@ -65,29 +77,31 @@ abstract class BaseBoard implements Renderable, Winnerable
 class Board extends BaseBoard
 {
     public static function render(
-        array $cells,
+        int $boardSize,
         SmallBoard $layout,
         int $columnCount = Board::DEFAULT_COLUMN_COUNT,
         int $rowCount = Board::DEFAULT_ROW_COUNT
     ): string {
         $result = "<div class=\"board\" style=\"--column-count: {$columnCount}; --row-count: {$rowCount}\">\n";
 
-        $result .= $layout::SIZE;
+        $result .= $boardSize;
+        $cells = SmallBoard::boardCreator($boardSize);
+        $cellUnit = floor($rowCount / count($cells));
+        $gridRowStart = 1;
+        $gridColumnStart = 1;
+        $gridRows = [];
+        $gridColumns = [];
 
-        $cellUnit = $rowCount / count($cells);
-        $gridStart = 1;
+        foreach ($cells as $c => $cell) {
+            array_push($gridRows, [$gridRowStart, $gridRowStart + ($cellUnit)]);
+            $gridRowStart = $gridRowStart + $cellUnit;
+        }
 
-        $gridRows = [
-            [$gridStart, $gridStart + $cellUnit],
-            [$gridStart + $cellUnit, $gridStart + ($cellUnit * 2)],
-            [$gridStart + ($cellUnit * 2), $gridStart + ($cellUnit * 3)]
-        ];
+        foreach ($gridRows as $r => $row) {
+            array_push($gridColumns, [$gridColumnStart, $gridColumnStart + $cellUnit]);
+            $gridColumnStart = $gridColumnStart + $cellUnit;
+        }
 
-        $gridColumns = [
-            [$gridStart, $gridStart + $cellUnit],
-            [$gridStart + $cellUnit, $gridStart + ($cellUnit * 2)],
-            [$gridStart + ($cellUnit * 2), $gridStart + ($cellUnit * 3)]
-        ];
 
         foreach ($cells as $x => $cell) {
             foreach ($gridColumns as $y => $value) {
@@ -97,6 +111,9 @@ class Board extends BaseBoard
                 $result .= "<div class=\"cell\" style=\"grid-area: {$gridArea}\"></div>";
             }
         }
+        echo 'Rows: ' . count($gridRows);
+        echo ' Columns: ' . count($gridColumns) . '<br>';
+        echo 'Unit: ' . $cellUnit;
 
         return $result . "</div>\n";
     }
@@ -127,11 +144,10 @@ class Board extends BaseBoard
 </head>
 
 <body>
-    <?php echo Board::render([
-        [null, null, null],
-        [null, null, null],
-        [null, null, null]
-    ], new SmallBoard); ?>
+    <?php echo Board::render(
+        12,
+        new SmallBoard
+    );  ?>
 </body>
 
 </html>

@@ -1,5 +1,5 @@
 :root {
-    --grid-gap: 1rem;
+    --grid-gap: 0.5rem;
     --row-count: 12;
     --column-count: 12;
     --board-bg-color: #787878;
