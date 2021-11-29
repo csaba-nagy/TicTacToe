@@ -1,7 +1,6 @@
 :root {
   --grid-gap: 1rem;
-  --row-count: 12;
-  --column-count: 12;
+  --border-radius: calc(var(--grid-gap, 1rem) * 0.25);
   --board-bg-color: #787878;
   --field-bg-color: #ECECEC;
   --field-bg-dark-color: #C2C2C2;
@@ -15,23 +14,21 @@ body {
 }
 
 .board {
-  --grid-column-unit: calc(12 / var(--column-count) * 1rem);
-  --grid-row-unit: calc(12 / var(--row-count) * 1rem);
   display: grid;
   gap: var(--grid-gap, 1rem);
-  grid-template-columns: repeat(var(--column-count), minmax(var(--grid-column-unit), 1fr));
-  grid-template-rows: repeat(var(--row-count), minmax(var(--grid-row-unit), 1fr));
-  padding: 1rem;
-  border-radius: 0.25rem;
+  padding: var(--grid-gap, 1rem);
+  border-radius: var(--border-radius, 0.25rem);
   background-color: var(--board-bg-color, #787878);
 }
 
 .field {
+  width: calc(var(--grid-gap, 1rem) * 8);
+  aspect-ratio: 1;
   display: grid;
   place-items: center;
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius, 0.25rem);
   background-color: var(--field-bg-color, #ECECEC);
-  font-size: 4rem;
+  font-size: calc(var(--grid-gap, 1rem) * 4);
 }
 
 .field:hover {

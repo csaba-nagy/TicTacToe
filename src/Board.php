@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace TicTacToe;
 
+use InvalidArgumentException;
+
 class Board
 {
   public const ROW_COUNT = 3;
@@ -14,6 +16,12 @@ class Board
 
   private Game $_game;
 
+  /**
+   *
+   * @param int $itemCount
+   * @param int $gridBase
+   * @return int[][]
+   */
   public static function generateGridParameters(
     int $itemCount,
     int $gridBase = Board::GRID_BASE,
@@ -28,12 +36,19 @@ class Board
     return $items;
   }
 
+  /**
+   *
+   * @param int $rowCount
+   * @param int $columnCount
+   * @return \TicTacToe\Coordinate[][]
+   * @throws \InvalidArgumentException
+   */
   public static function generateCoordinates(
     int $rowCount = Board::ROW_COUNT,
     int $columnCount = Board::COLUMN_COUNT,
   ): array {
     if ($rowCount < static::ROW_COUNT || $columnCount < static::COLUMN_COUNT) {
-      throw new \InvalidArgumentException(message: 'Invalid board size');
+      throw new InvalidArgumentException(message: 'Invalid board size');
     }
 
     $coordinates = [];
@@ -50,9 +65,12 @@ class Board
   }
 
   /**
-   *
+   * 
    * @param \TicTacToe\Coordinate[][] $_coordinates
-   * @return never
+   * @param int $_rowCount
+   * @param int $_columnCount
+   * @param int $_gridBase
+   * @return void 
    */
   public function __construct(
     private array $_coordinates = [],
@@ -62,41 +80,80 @@ class Board
   ) {
   }
 
+  /**
+   *
+   * @return int
+   */
   public function getRowCount(): int
   {
     return $this->_rowCount;
   }
 
+  /**
+   *
+   * @return int
+   */
   public function getColumnCount(): int
   {
     return $this->_columnCount;
   }
 
+  /**
+   *
+   * @param int $value
+   * @return void
+   */
   public function setRowCount(int $value): void
   {
     $this->_rowCount = $value;
   }
 
+  /**
+   *
+   * @param int $value
+   * @return void
+   */
   public function setColumnCount(int $value): void
   {
     $this->_columnCount = $value;
   }
 
+  /**
+   *
+   * @param int $value
+   * @return void
+   */
   public function setGridBase(int $value): void
   {
     $this->_gridBase = $value;
   }
 
+  /**
+   *
+   * @param \TicTacToe\Game $game
+   * @return void
+   */
   public function setGame(Game $game): void
   {
     $this->_game = $game;
   }
 
+  /**
+   *
+   * @param null|int $x
+   * @param null|int $y
+   * @return \TicTacToe\Coordinate[][]
+   */
   public function getCoordinates(): array
   {
     return $this->_coordinates;
   }
 
+  /**
+   *
+   * @param \TicTacToe\Coordinate $coordinate
+   * @return void
+   */
   public function selectField(Coordinate $coordinate): void
   {
     $currentPlayer = $this->_game->getCurrentPlayer();
@@ -113,14 +170,13 @@ class Board
     $this->_game->switchPlayer();
   }
 
+  /**
+   *
+   * @return string
+   */
   public function render(): string
   {
-    $result = <<<BOARD
-      <div
-        class="board"
-        style="--column-count: {$this->_gridBase}; --row-count: {$this->_gridBase}"
-      >
-    BOARD;
+    $result = '<div class="board">';
 
     $gridRows = static::generateGridParameters(
       itemCount: $this->_rowCount,
@@ -152,9 +208,6 @@ class Board
       }
     }
 
-    return <<<BOARD
-        {$result}
-      </div>
-    BOARD;
+    return $result . '</div>';
   }
 }

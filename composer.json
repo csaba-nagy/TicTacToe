@@ -1,16 +1,24 @@
 {
-    "name": "vscode/tictactoe-php",
+    "name": "tictactoe/tictactoe-php",
     "type": "project",
-    "require-dev": {
-        "symfony/var-dumper": "^5.3",
-        "filp/whoops": "^2.14"
+    "license": "proprietary",
+    "require": {
+        "php": "^8.0"
     },
-    "license": "private",
+    "require-dev": {
+        "filp/whoops": "^2.14",
+        "symfony/var-dumper": "^5.3"
+    },
     "autoload": {
         "psr-4": {
             "TicTacToe\\": "src/"
         }
     },
-    "minimum-stability": "stable",
-    "require": {}
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
