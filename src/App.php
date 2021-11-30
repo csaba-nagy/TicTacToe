@@ -28,7 +28,7 @@ class App implements Runnable
      */
     public function run(): void
     {
-        dump(__METHOD__);
+        (new Game())->run();
     }
 
     /**
