@@ -32,6 +32,7 @@ class App implements Runnable
 
         $game->addPlayer(new Player(Player::SIGN_X));
         $game->addPlayer(new Player(Player::SIGN_O));
+        $game->setBoard(new Board());
         $game->run();
     }
 

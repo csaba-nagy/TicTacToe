@@ -12,13 +12,7 @@ class Game implements Runnable
     /** @var \TicTacToe\Player[] $_players */
     private array $_players = [];
 
-    /**
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-    }
+    private Board $_board;
 
     /**
      * Start the game.
@@ -27,7 +21,7 @@ class Game implements Runnable
      */
     public function run(): void
     {
-        dump($this->_players);
+        dump($this->_players, $this->_board);
     }
 
     /**
@@ -43,5 +37,16 @@ class Game implements Runnable
         }
 
         $this->_players[] = $player;
+    }
+
+    /**
+     * Add a board to the game.
+     *
+     * @param \TicTacToe\Board $board
+     * @return void
+     */
+    public function setBoard(Board $board): void
+    {
+        $this->_board = $board;
     }
 }
