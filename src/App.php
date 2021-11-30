@@ -22,13 +22,17 @@ class App implements Runnable
     }
 
     /**
-     * Run the application.
+     * Run the application after add players.
      *
      * @return void
      */
     public function run(): void
     {
-        (new Game())->run();
+        $game = new Game();
+
+        $game->addPlayer(new Player(Player::SIGN_X));
+        $game->addPlayer(new Player(Player::SIGN_O));
+        $game->run();
     }
 
     /**
