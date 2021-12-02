@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace TicTacToe;
 
-class Player
-{
-    public const SIGN_O = '⭕';
-    public const SIGN_X = '❌';
+use TicTacToe\Board\Coordinate;
+use TicTacToe\Contracts\Movable;
+use TicTacToe\Contracts\Signable;
 
+class Player implements Signable, Movable
+{
     /**
      *
      * @param string $_sign
@@ -17,5 +18,10 @@ class Player
     public function __construct(
         private string $_sign,
     ) {
+    }
+
+    public function move(Coordinate $coordinate): void
+    {
+        dump([$coordinate, $this->_sign]);
     }
 }

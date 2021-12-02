@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace TicTacToe;
 
+use TicTacToe\Board\Coordinate;
 use TicTacToe\Contracts\Runnable;
+use TicTacToe\Contracts\Signable;
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run;
 
@@ -28,12 +30,23 @@ class App implements Runnable
      */
     public function run(): void
     {
+        /** @var (\TicTacToe\Board\Coordinate|null)[][] $state */
+        $state = [
+            [null, null, null],
+            [null, null, null],
+            [null, null, null],
+        ];
+
+        $playerX = new Player(Signable::SIGN_X);
+
         $game = new Game();
 
-        $game->addPlayer(new Player(Player::SIGN_X));
-        $game->addPlayer(new Player(Player::SIGN_O));
-        $game->setBoard(new Board());
+        $game->addPlayer($playerX);
+        $game->addPlayer(new Player(Signable::SIGN_O));
+        $game->setBoard(new Board($state));
         $game->run();
+
+        $playerX->move(new Coordinate(0, 0));
     }
 
     /**
