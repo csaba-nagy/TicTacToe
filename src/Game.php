@@ -46,7 +46,18 @@ class Game implements Winnable
             return false;
         }
 
-        foreach ($this->board->state->getRows() as $field) {
+        return $this->isRowWon($this->board->state->getRows()) ||
+            $this->isRowWon($this->board->state->getColumns());
+    }
+
+    /**
+     *
+     * @param \TicTacToe\Field[][] $fields
+     * @return bool
+     */
+    private function isRowWon(array $fields): bool
+    {
+        foreach ($fields as $field) {
             $values = [];
 
             foreach ($field as $value) {
@@ -59,22 +70,6 @@ class Game implements Winnable
 
             return array_unique($values)[0] === $this->currentPlayer->sign;
         }
-
-        foreach ($this->board->state->getColumns() as $field) {
-            $values = [];
-
-            foreach ($field as $value) {
-                $values[] = $value->sign;
-            }
-
-            if (count(array_filter($values)) !== 3) {
-                continue;
-            }
-
-            return array_unique($values)[0] === $this->currentPlayer->sign;
-        }
-
-        return false;
     }
 
     /**
