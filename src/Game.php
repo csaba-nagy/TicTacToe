@@ -70,6 +70,8 @@ class Game implements Winnable
 
             return array_unique($values)[0] === $this->currentPlayer->sign;
         }
+
+        return false;
     }
 
     /**
