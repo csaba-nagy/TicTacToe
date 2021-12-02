@@ -16,7 +16,7 @@ class Container
 
     /**
      *
-     * @return \Container
+     * @return \TicTacToe\Container
      */
     public static function getInstance(): Container
     {

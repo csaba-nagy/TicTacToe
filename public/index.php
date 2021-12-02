@@ -12,18 +12,19 @@ use TicTacToe\State;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-/** @var \Container $container */
+(new Whoops\Run())->pushHandler(new Whoops\Handler\PrettyPageHandler())->register();
+
 $container = Container::getInstance();
 
 $container
-    ->bind(PlayerX::class, fn () => new PlayerX())
-    ->bind(PlayerO::class, fn () => new PlayerO())
     ->bind(State::class, fn () => new State([
         [new Field(0, 0), new Field(0, 1), new Field(0, 2)],
         [new Field(1, 0), new Field(1, 1), new Field(1, 2)],
         [new Field(2, 0), new Field(2, 1), new Field(2, 2)],
     ]))
     ->bind(Board::class, fn () => new Board($container->make(State::class)))
+    ->bind(PlayerX::class, fn () => new PlayerX())
+    ->bind(PlayerO::class, fn () => new PlayerO())
     ->bind(Game::class, fn () => new Game([
         PlayerX::class => $container->make(PlayerX::class),
         PlayerO::class => $container->make(PlayerO::class),
