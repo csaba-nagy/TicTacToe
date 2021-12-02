@@ -67,8 +67,6 @@ class Container
      */
     public function factory(string $abstract, Closure $closure): mixed
     {
-        $this->bind($abstract, $closure);
-
-        return $this->make($abstract);
+        return $this->bind($abstract, $closure)->make($abstract);
     }
 }
