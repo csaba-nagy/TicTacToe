@@ -26,7 +26,7 @@ abstract class Player implements Movable, Signable
     {
         $container = Container::getInstance();
 
-        /** @var \Board $board */
+        /** @var \TicTacToe\Board $board */
         $board = $container->make(Board::class);
 
         $board->touch(new Field($x, $y));
