@@ -9,10 +9,12 @@ use TicTacToe\Game;
 use TicTacToe\Player\PlayerO;
 use TicTacToe\Player\PlayerX;
 use TicTacToe\State;
+use Whoops\Run;
+use Whoops\Handler\PrettyPageHandler;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-(new Whoops\Run())->pushHandler(new Whoops\Handler\PrettyPageHandler())->register();
+(new Run())->pushHandler(new PrettyPageHandler())->register();
 
 $container = Container::getInstance();
 
