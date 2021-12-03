@@ -20,7 +20,7 @@ class Container
      */
     public static function getInstance(): Container
     {
-        return self::$_instance ?? self::$_instance = new static();
+        return self::$_instance ??= new static();
     }
 
     /**
