@@ -42,7 +42,7 @@ class Game implements Winnable
     {
         $state = $this->board->state;
 
-        if (count($state->unavailableFields) < $this->getMinimumFieldsToWin(3)) {
+        if (count($state->unavailableFields) < $this->getMinimumFieldCountToWin(3)) {
             return false;
         }
 
@@ -86,7 +86,7 @@ class Game implements Winnable
      * @param int $length
      * @return int
      */
-    private function getMinimumFieldsToWin(int $length): int
+    private function getMinimumFieldCountToWin(int $length): int
     {
         return [
             3 => 5,
