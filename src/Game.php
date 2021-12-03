@@ -29,7 +29,7 @@ class Game implements Winnable
      */
     public function switchPlayer(): void
     {
-        $playerKey = $this->currentPlayer instanceof PlayerX ? PlayerO::class : PlayerX::class;
+        $playerKey = $this->currentPlayer instanceof PlayerO ? PlayerX::class : PlayerOm::class;
 
         $this->currentPlayer = $this->players[$playerKey];
     }
