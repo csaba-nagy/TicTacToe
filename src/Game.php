@@ -24,7 +24,8 @@ class Game implements Winnable
     }
 
     /**
-     *
+     * TODO: check winner before switch player
+     *M
      * @return void
      */
     public function switchPlayer(): void
