@@ -46,8 +46,15 @@ class Game implements Winnable
             return false;
         }
 
-        return $this->isRowWon($this->board->state->getRows()) ||
-            $this->isRowWon($this->board->state->getColumns());
+        if (!$this->isRowWon($this->board->state->getRows()) {
+            return false;
+        }
+
+        if (!$this->isRowWon($this->board->state->getColumns()) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
