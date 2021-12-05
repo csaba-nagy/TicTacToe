@@ -1,0 +1,20 @@
+{
+    "name": "csabanagy/tic-tac-toe",
+    "type": "pack",
+    "require-dev": {
+        "symfony/var-dumper": "^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Csabanagy\\TicTacToe\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Csaba Nagy",
+            "email": "n.csaba1991@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}

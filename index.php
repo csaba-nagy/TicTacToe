@@ -1,7 +1,7 @@
 <?php
 
 declare(strict_types=1);
-
+require __DIR__ . '/vendor/autoload.php';
 interface Renderable
 {
     public const DEFAULT_CELL_COUNT = 9;
@@ -118,6 +118,95 @@ class Board extends BaseBoard
         return $result . "</div>\n";
     }
 
+    public static function isEquals(array $items, string $sign, int $length): bool
+    {
+        $filteredItems = array_filter(
+            array: $items,
+            callback: function ($item) use ($sign) {
+                return $item === $sign;
+            }
+        );
+        return count($filteredItems) === $length;
+    }
+
+    public static function hasWinner(array $board, string $sign, int $length = 3): bool
+    {
+        $elements = [
+            'leftToRightDiagonal' => [],
+            'rightToLeftDiagonal' => []
+        ];
+        // foreach ($board as $rowIndex => $cell) {
+        //     $elements['rows'][] = $cell;
+        //     foreach ($cell as $cellIndex => $value) {
+        //         $elements['cols'][$cellIndex][] = $value;
+        //         if ($rowIndex === $cellIndex) $elements['leftToRightDiagonal'][] = $value;
+        //         if ($rowIndex + $cellIndex === $length - 1) $elements['rightToLeftDiagonal'][] = $value;
+        //     }
+        // }
+        array_map(
+            callback: function (array $row) use ($board, $elements, $length, $sign) {
+                return array_map(
+                    callback: function (int $rowIndex) use ($board, $row, $length, $elements, $sign) {
+                        $elements['leftToRightDiagonal'][] = $row[$rowIndex];
+                        $elements['rightToLeftDiagonal'][] = $row[$length - 1 - $rowIndex];
+
+                        // check horizontally
+                        if (Board::isEquals($row, $sign, $length)) return true;
+
+                        // check vertically
+                        $column = array_map(
+                            callback: function ($columnIndex) use ($board, $rowIndex) {
+                                return $board[$rowIndex][$columnIndex];
+                            },
+                            array: $row
+                        );
+
+                        if (Board::isEquals($column, $sign, $length)) return true;
+
+                        return false;
+                    },
+                    array: array_keys($row)
+                );
+            },
+            array: $board
+        );
+        print_r($elements);
+        if (Board::isEquals($elements['leftToRightDiagonal'], 'X', 3)) {
+            return true;
+        } else if (Board::isEquals($elements['rightToLeftDiagonal'], 'X', 3)) {
+            return  true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * 
+     * @param string[][] $items 
+     * @return bool 
+     */
+    public static function _hasWinner(array $items): bool
+    {
+        /** @var bool[] */
+        $rowItems = array_map(
+            fn (array $item) => self::isEquals($item, 'O', 3),
+            $items
+        );
+
+        /** @var bool[] */
+        $columnItems = array_map(
+            fn (int $rowIndex) => self::isEquals(array_map(fn (array $row) => $row[$rowIndex], $items), 'O', 3),
+            array_keys($items)
+        );
+
+
+        dd(array_filter($columnItems, fn ($item) => $item === true), $items);
+
+        return array_filter($columnItems, fn ($item) => $item === true)
+            || array_filter($rowItems, fn ($item) => $item === true);
+    }
+
+
     public static function checkWinner(
         array $cells,
         Player $player
@@ -129,7 +218,12 @@ class Board extends BaseBoard
 }
 
 // echo 'The winner is ' . Board::checkWinner([], new PlayerX) ? 'X' ? 'O';
-
+// $board = [
+//     ['X', '01', '02'],
+//     ['10', 'X', '12'],
+//     ['20', '21', 'X'],
+// ];
+// echo Board::hasWinner($board, 'X', 3);
 ?>
 
 <!DOCTYPE html>
@@ -139,15 +233,27 @@ class Board extends BaseBoard
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
+    <!-- <link rel="stylesheet" href="css/style.css"> -->
     <title>TicTacToe</title>
 </head>
 
 <body>
-    <?php echo Board::render(
-        12,
-        new SmallBoard
-    );  ?>
+    <!-- <?php echo Board::render(
+                12,
+                new SmallBoard
+            );  ?> -->
+    <?php
+    // echo Board::hasWinner($board = [
+    //     ['X', '01', '02'],
+    //     ['10', 'X', '12'],
+    //     ['20', '21', 'X'],
+    // ], 'X', 3);
+    Board::_hasWinner([
+        ['X', 'O', 'X'],
+        ['O', 'O', 'O'],
+        ['O', 'O', 'O']
+    ]);
+    ?>
 </body>
 
 </html>
