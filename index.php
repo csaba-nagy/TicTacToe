@@ -203,7 +203,7 @@ class Board extends BaseBoard
             return true;
         }
 
-        // Strategy - vertical
+        // Strategy - vertical. Or transpose original and check rows again.
         $hasColumnWinner = array_filter(
             array_map(
                 fn (int $rowIndex) => self::isEquals(array_map(fn (array $row) => $row[$rowIndex], $items), $sign, $length),
@@ -216,7 +216,7 @@ class Board extends BaseBoard
             return true;
         }
 
-        // Strategy - cross
+        // Strategy - cross (x2). Check only one direction, transpose items and recheck with previous direction.
         // TODO: 1: create diagonal logic
         // $diagonal = [];
         // map array items, check rows and columns (column pairs: 0-2, 1-1, 2-0)
@@ -225,6 +225,18 @@ class Board extends BaseBoard
         // dd(array_filter($columnItems, $hasTrue), $items);
 
         return $hasDiagonalWinner;
+    }
+
+    /**
+     * Tranpose rows to column and vice versa
+     */
+    public static transpose(array $input): array
+    {
+        // 0,0 - 0,1 - ...
+        // 1,0 - 1,1 - ...
+        // transpose = rotate clocwise
+        // 1,0 - 0,0
+        // 1,1 - 0,1
     }
 
 
