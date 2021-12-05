@@ -185,25 +185,43 @@ class Board extends BaseBoard
      * @param string[][] $items 
      * @return bool 
      */
-    public static function _hasWinner(array $items): bool
+    public static function _hasWinner(array $items, string $sign, int $length = 3): bool
     {
-        /** @var bool[] */
-        $rowItems = array_map(
-            fn (array $item) => self::isEquals($item, 'O', 3),
-            $items
+        // TODO: 2. move to class - [$this, 'hasTrue']
+        $hasTrue = fn (bool $item) => $item === true;
+
+        $hasRowWinner = array_filter(
+            array_map(
+                fn (array $item) => self::isEquals($item, $sign, $length),
+                $items
+            ),
+            $hasTrue
         );
+        
+        if ($hasRowWinner) {
+            return true;
+        }
 
-        /** @var bool[] */
-        $columnItems = array_map(
-            fn (int $rowIndex) => self::isEquals(array_map(fn (array $row) => $row[$rowIndex], $items), 'O', 3),
-            array_keys($items)
+        $hasColumnWinner = array_filter(
+            array_map(
+                fn (int $rowIndex) => self::isEquals(array_map(fn (array $row) => $row[$rowIndex], $items), $sign, $length),
+                array_keys($items)
+            ),
+            $hasTrue
         );
+        
+        if ($hasColumnWinner) {
+            return true;
+        }
+        
+        // TODO: 1: create diagonal logic
+        // $diagonal = [];
+        // map array items, check rows and columns (column pairs: 0-2, 1-1, 2-0)
+        $hasDiagonalWinner = false;
 
+        // dd(array_filter($columnItems, $hasTrue), $items);
 
-        dd(array_filter($columnItems, fn ($item) => $item === true), $items);
-
-        return array_filter($columnItems, fn ($item) => $item === true)
-            || array_filter($rowItems, fn ($item) => $item === true);
+        return $hasDiagonalWinner;
     }
 
 
@@ -252,7 +270,7 @@ class Board extends BaseBoard
         ['X', 'O', 'X'],
         ['O', 'O', 'O'],
         ['O', 'O', 'O']
-    ]);
+    ], 'O');
     ?>
 </body>
 
