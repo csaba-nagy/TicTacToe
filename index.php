@@ -190,6 +190,7 @@ class Board extends BaseBoard
         // TODO: 2. move to class - [$this, 'hasTrue']
         $hasTrue = fn (bool $item) => $item === true;
 
+        // Strategy - horizontal
         $hasRowWinner = array_filter(
             array_map(
                 fn (array $item) => self::isEquals($item, $sign, $length),
@@ -202,6 +203,7 @@ class Board extends BaseBoard
             return true;
         }
 
+        // Strategy - vertical
         $hasColumnWinner = array_filter(
             array_map(
                 fn (int $rowIndex) => self::isEquals(array_map(fn (array $row) => $row[$rowIndex], $items), $sign, $length),
@@ -213,7 +215,8 @@ class Board extends BaseBoard
         if ($hasColumnWinner) {
             return true;
         }
-        
+
+        // Strategy - cross
         // TODO: 1: create diagonal logic
         // $diagonal = [];
         // map array items, check rows and columns (column pairs: 0-2, 1-1, 2-0)
