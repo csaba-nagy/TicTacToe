@@ -1,0 +1,9 @@
+{
+    "recommendations": [
+        "bmewburn.vscode-intelephense-client",
+        "editorconfig.editorconfig",
+        "felixfbecker.php-debug",
+        "ibm.output-colorizer",
+        "streetsidesoftware.code-spell-checker"
+    ]
+}

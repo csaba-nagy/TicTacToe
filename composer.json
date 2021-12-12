@@ -1,0 +1,38 @@
+{
+    "name": "tictactoe/design-patterns",
+    "description": "Tic Tac Toe game solution.",
+    "type": "project",
+    "scripts": {
+        "start": "php -S localhost:8080 -t public/"
+    },
+    "require": {
+        "php": "^8.0"
+    },
+    "require-dev": {
+        "filp/whoops": "^2.14",
+        "symfony/var-dumper": "6.1.x-dev"
+    },
+    "license": "proprietary",
+    "autoload": {
+        "files": [
+            "config/constants.php",
+            "config/helpers.php"
+        ],
+        "psr-4": {
+            "TicTacToe\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Nándor Dudás",
+            "email": "nandor.dudas@gmail.com"
+        }
+    ],
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

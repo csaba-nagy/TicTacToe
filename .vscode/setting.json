@@ -1,0 +1,27 @@
+{
+    "breadcrumbs.enabled": false,
+    "editor.bracketPairColorization.enabled": true,
+    "editor.cursorBlinking": "phase",
+    "editor.cursorSmoothCaretAnimation": true,
+    "editor.cursorStyle": "line-thin",
+    "editor.emptySelectionClipboard": false,
+    "editor.fontFamily": "Cascadia Code Light",
+    "editor.fontLigatures": true,
+    "editor.formatOnSave": true,
+    "editor.minimap.enabled": false,
+    "editor.rulers": [
+        100
+    ],
+    "files.autoSave": "onFocusChange",
+    "files.insertFinalNewline": true,
+    "files.trimTrailingWhitespace": true,
+    "git.autofetch": "all",
+    "git.enableCommitSigning": true,
+    "telemetry.telemetryLevel": "off",
+    "terminal.integrated.cursorBlinking": true,
+    "terminal.integrated.cursorStyle": "underline",
+    "terminal.integrated.fontFamily": "MesloLGM NF",
+    "window.menuBarVisibility": "compact",
+    "workbench.sideBar.location": "right",
+    "workbench.startupEditor": "none"
+}

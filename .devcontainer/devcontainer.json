@@ -1,0 +1,36 @@
+{
+    "name": "TicTacToe - PHP 8.0",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "args": {
+            "NODE_VERSION": "none",
+            "VARIANT": "8.0"
+        }
+    },
+    "settings": {
+        "editor.rulers": [
+            100
+        ],
+        "php.validate.executablePath": "/usr/local/bin/php",
+        "workbench.colorTheme": "GitHub Dark Dimmed",
+        "workbench.iconTheme": "material-icon-theme",
+        "workbench.productIconTheme": "fluent-icons"
+    },
+    "extensions": [
+        "bmewburn.vscode-intelephense-client",
+        "editorconfig.editorconfig",
+        "felixfbecker.php-debug",
+        "github.copilot",
+        "github.github-vscode-theme",
+        "ibm.output-colorizer",
+        "miguelsolorio.fluent-icons",
+        "ms-azuretools.vscode-docker",
+        "mutantdino.resourcemonitor",
+        "pkief.material-icon-theme",
+        "streetsidesoftware.code-spell-checker"
+    ],
+    "forwardPorts": [
+        8080
+    ],
+    "remoteUser": "vscode"
+}
