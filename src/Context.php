@@ -27,6 +27,21 @@ class Context
         return $this;
     }
 
+    public function hasStateFieldsMinimumCount(): bool
+    {
+        $minimumSteps = $this->state->getMinimumStepsForLineLength(
+            $this->strategy->getLineLength(),
+        );
+
+        return count(array_filter(flatData($this->state->getFields()))) >= $minimumSteps;
+    }
+
+    /**
+     * In ideal case, we need to populate the `$this->fieldIndices` array with once. But in case of
+     * a draw, we need to populate it more times, because of line length will grows by two.
+     *
+     * @return void
+     */
     public function updateFieldIndices(): void
     {
         $this->fieldIndices[$this->strategy::class] = array_reduce(
@@ -39,10 +54,33 @@ class Context
     public function hasIdenticalSymbolsInARowAs(string $symbol): bool
     {
         /**
-         * Filter out only given symbol and check items count is equal to line length.
-         * If so, then there is a winner.
+         * Prevent unnecessary performative calculations.
          */
-        $items = array_map(
+        if (!$this->hasStateFieldsMinimumCount()) {
+            return false;
+        }
+
+        foreach ($this->getItemsForSymbol($symbol) as $item) {
+            if ($item === 0) {
+                continue;
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Filter out only given symbol and check items count is equal to line length. If so,
+     * then there is a winner.
+     *
+     * @param string $symbol
+     * @return array
+     */
+    private function getItemsForSymbol(string $symbol): array
+    {
+        return array_map(
             fn (array $item) => count($item) === $this->strategy->getLineLength(),
             array_map(
                 fn (array $item) => array_filter(
@@ -55,15 +93,5 @@ class Context
                 $this->fieldIndices[$this->strategy::class],
             ),
         );
-
-        foreach ($items as $item) {
-            if ($item === 0) {
-                continue;
-            }
-
-            return true;
-        }
-
-        return false;
     }
 }

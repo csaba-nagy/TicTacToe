@@ -36,23 +36,23 @@ class App
         $strategyFields = [
             HorizontalStrategy::class => [
                 ['❌', '❌', '❌'],
-                [null, null, null],
+                ['⭕', null, '⭕'],
                 [null, null, null],
             ],
             VerticalStrategy::class => [
+                ['❌', null, '⭕'],
                 ['❌', null, null],
-                ['❌', null, null],
-                ['❌', null, null],
+                ['❌', null, '⭕'],
             ],
             DiagonalLeftStrategy::class => [
-                ['❌', null, null],
+                ['❌', null, '⭕'],
                 [null, '❌', null],
-                [null, null, '❌'],
+                ['⭕', null, '❌'],
             ],
             DiagonalRightStrategy::class => [
-                [null, null, '❌'],
+                ['⭕', null, '❌'],
                 [null, '❌', null],
-                ['❌', null, null],
+                ['❌', null, '⭕'],
             ],
         ];
 
