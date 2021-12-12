@@ -47,10 +47,10 @@ class Context
             array_map(
                 fn (array $item) => array_filter(
                     array_map(
-                        fn (string|null $item) => flatData($this->state->getFields())[$item],
+                        fn (?string $item) => flatData($this->state->getFields())[$item],
                         $item,
                     ),
-                    fn (string|null $item) => $item === $symbol,
+                    fn (?string $item) => $item === $symbol,
                 ),
                 $this->fieldIndices[$this->strategy::class],
             ),

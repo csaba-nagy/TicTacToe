@@ -9,13 +9,11 @@ if (DEV) {
 }
 
 try {
-    $app = new TicTacToe\App();
-
-    $app->run();
-} catch (Throwable $th) {
+    (new TicTacToe\App())->run();
+} catch (Throwable $error) {
     if (DEV) {
-        throw $th;
+        throw $error;
     }
 
-    echo $th->getMessage();
+    echo $error->getMessage();
 }
