@@ -3,7 +3,7 @@
 /**
  * The state of used environment.
  */
-define('DEV', true);
+define('DEV_MODE', true);
 
 /**
  * Default line length of winner lines.
