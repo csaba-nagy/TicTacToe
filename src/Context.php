@@ -36,7 +36,7 @@ class Context
         );
     }
 
-    public function hasWinner(string $symbol): bool
+    public function hasIdenticalSymbolsInARowAs(string $symbol): bool
     {
         /**
          * Filter out only given symbol and check items count is equal to line length.

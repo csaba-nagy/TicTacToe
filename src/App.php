@@ -73,7 +73,7 @@ class App
             $state->setFields($fields);
             $context->setState($state);
 
-            dump([$strategyName => $context->hasWinner('❌')]);
+            dump([$strategyName => $context->hasIdenticalSymbolsInARowAs('❌')]);
         }
     }
 
