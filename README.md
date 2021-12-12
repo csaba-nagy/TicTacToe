@@ -6,7 +6,7 @@
 
 ## Setup
 
-After repository has been cloned, go to root folder and install  - `compose install` - dependencies.
+After repository has been cloned, go to root folder and install  - `composer install` - dependencies.
 Last, but not least change working branch - `git checkout design-patterns` - as well.
 
 ## Start project
