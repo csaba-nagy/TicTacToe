@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace TicTacToe;
 
+use TicTacToe\Contracts\Symbolic;
+use TicTacToe\Players\Player;
 use TicTacToe\Strategies\DiagonalLeftStrategy;
 use TicTacToe\Strategies\DiagonalRightStrategy;
 use TicTacToe\Strategies\HorizontalStrategy;
@@ -33,48 +35,43 @@ class App
             [6, 7, 8],
         ];
 
-        $strategyFields = [
-            HorizontalStrategy::class => [
-                ['❌', '❌', '❌'],
-                ['⭕', null, '⭕'],
-                [null, null, null],
-            ],
-            VerticalStrategy::class => [
-                ['❌', null, '⭕'],
-                ['❌', null, null],
-                ['❌', null, '⭕'],
-            ],
-            DiagonalLeftStrategy::class => [
-                ['❌', null, '⭕'],
-                [null, '❌', null],
-                ['⭕', null, '❌'],
-            ],
-            DiagonalRightStrategy::class => [
-                ['⭕', null, '❌'],
-                [null, '❌', null],
-                ['❌', null, '⭕'],
-            ],
-        ];
-
         $context = new Context();
-        $state = new State();
 
         foreach ($this->strategies as $strategy) {
-            /**
-             * Strategy's line length can be changed, but default is DEFAULT_LINE_LENGTH - is 3.
-             *
-             * $strategy->setLineLength(4);
-             */
             $strategy->setFieldIndices($indices);
             $context->setStrategy($strategy)->updateFieldIndices();
         }
 
-        foreach ($strategyFields as $strategyName => $fields) {
-            $state->setFields($fields);
-            $context->setState($state);
+        $state = new State();
 
-            dump([$strategyName => $context->hasIdenticalSymbolsInARowAs('❌')]);
-        }
+        $state->setFields([
+            [null, null, null],
+            [null, null, null],
+            [null, null, null],
+        ]);
+
+        $board = new Board();
+
+        $board->setState($state);
+
+        $currentPlayer = new Player();
+        $opponent = new Player();
+
+        $currentPlayer->setSymbol(Symbolic::SIGN_CROSS);
+        $opponent->setSymbol(Symbolic::SIGN_CIRCLE);
+
+        ($game = new Game())
+            ->setContext($context)
+            ->setBoard($board)
+            ->addPlayer($currentPlayer)
+            ->addPlayer($opponent)
+            ->setCurrentPlayer($currentPlayer);
+
+        $game->move([0, 0]);
+        $game->move([0, 2]);
+        $game->move([1, 0]);
+        $game->move([1, 2]);
+        $game->move([2, 0]);
     }
 
     private function setup(): void
