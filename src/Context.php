@@ -8,7 +8,7 @@ use TicTacToe\Contracts\Strategy;
 
 class Context
 {
-    public array $indices;
+    public array $fieldIndices;
 
     private Strategy $strategy;
     private State $state;
@@ -27,9 +27,9 @@ class Context
         return $this;
     }
 
-    public function updateIndices(): void
+    public function updateFieldIndices(): void
     {
-        $this->indices[$this->strategy::class] = array_reduce(
+        $this->fieldIndices[$this->strategy::class] = array_reduce(
             $this->strategy->getFields(),
             fn (array $result, array $item) => [...$result, $item],
             [],
@@ -52,7 +52,7 @@ class Context
                     ),
                     fn (string|null $item) => $item === $symbol,
                 ),
-                $this->indices[$this->strategy::class],
+                $this->fieldIndices[$this->strategy::class],
             ),
         );
 

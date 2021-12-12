@@ -8,6 +8,6 @@ class DiagonalLeftStrategy extends DiagonalStrategy
 {
     public function getFields(): array
     {
-        return $this->getDiagonalLeft($this->fields);
+        return $this->getDiagonalLeft($this->fieldIndices);
     }
 }

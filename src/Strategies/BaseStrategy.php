@@ -8,7 +8,7 @@ use TicTacToe\Contracts\Strategy;
 
 class BaseStrategy implements Strategy
 {
-    protected array $fields = [];
+    protected array $fieldIndices = [];
     protected int $lineLength = DEFAULT_LINE_LENGTH;
 
     public function getLineLength(): int
@@ -21,13 +21,13 @@ class BaseStrategy implements Strategy
         $this->lineLength = $value;
     }
 
-    public function setFields(array $data): void
+    public function setFieldIndices(array $data): void
     {
-        $this->fields = $data;
+        $this->fieldIndices = $data;
     }
 
     public function getFields(): array
     {
-        return $this->fields;
+        return $this->fieldIndices;
     }
 }

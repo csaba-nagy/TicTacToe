@@ -8,6 +8,6 @@ class VerticalStrategy extends BaseStrategy
 {
     public function getFields(): array
     {
-        return transposeData($this->fields);
+        return transposeData($this->fieldIndices);
     }
 }

@@ -65,8 +65,8 @@ class App
              *
              * $strategy->setLineLength(4);
              */
-            $strategy->setFields($indices);
-            $context->setStrategy($strategy)->updateIndices();
+            $strategy->setFieldIndices($indices);
+            $context->setStrategy($strategy)->updateFieldIndices();
         }
 
         foreach ($strategyFields as $strategyName => $fields) {

@@ -13,7 +13,7 @@ interface Strategy
      */
     public function getFields(): array;
 
-    public function setFields(array $data): void;
+    public function setFieldIndices(array $data): void;
 
     public function getLineLength(): int;
 
